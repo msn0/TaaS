@@ -8,7 +8,6 @@ var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({port: 9000});
 var mqtt = require('mqtt');
 var client = mqtt.connect('mqtt://localhost');
-//var socket;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -27,9 +26,9 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
-//wss.on('connection', function connection(ws) {
-//  socket = ws;
-//});
+wss.on('connection', function connection(ws) {
+  console.log('client connected');
+});
 
 client.on('connect', function () {
   console.log('connected');
