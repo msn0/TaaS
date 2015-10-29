@@ -6,8 +6,8 @@
     var exampleSocket = new WebSocket("ws://localhost:9000");
 
     exampleSocket.onmessage = function (event) {
-        console.log("DUPA");
-        console.log(event.data);
+        console.log("DUPA", event);
+        alert(event.data);
     }
 
 </script>

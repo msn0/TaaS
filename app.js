@@ -24,8 +24,8 @@ app.get('/', function(req, res, next){
   res.render('client', {"dupa":"foo"});
 });
 
-app.get('/talk', function(req, res, next){
-  socket.send("stachu");
+app.get('/api/toilets/:gender/:id', function(req, res, next){
+  socket.send(JSON.stringify(req.params) + "" + JSON.stringify(req.query));
 });
 
 app.listen(3000);
