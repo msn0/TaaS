@@ -20,12 +20,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.get('/', function(req, res, next){
-  res.render('client', {"dupa":"foo"});
+app.get('/', function(req, res){
+  res.render('client');
 });
 
 app.get('/api/toilets/:gender/:id', function(req, res, next){
-  socket.send(JSON.stringify(req.params) + "" + JSON.stringify(req.query));
+  var event = {
+    gender: req.params.gender,
+    action: req.query.action,
+    id: req.params.id
+  };
+  console.log(event);
+  socket.send(JSON.stringify(event));
+  res.end();
 });
 
 app.listen(3000);

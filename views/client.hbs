@@ -1,13 +1,63 @@
+<!doctype html>
 <html>
+<head>
+    <title>TaaS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.js"></script>
+    <style>
+        .cabin {
+            height: 100px;
+            background: #00ff00;
+        }
+
+        .cabin.busy {
+            background: #ff0000;
+        }
+    </style>
+</head>
 <body>
-<p>asdfsdfsdf</p>
+Male
+<div class="row">
+    <div class="cabin col-xs-3" id="m-1"></div>
+    <div class="cabin col-xs-3" id="m-2"></div>
+    <div class="cabin col-xs-3" id="m-3"></div>
+    <div class="cabin col-xs-3" id="m-4"></div>
+</div>
+Female
+<div class="row">
+    <div class="cabin col-xs-3" id="f-1"></div>
+    <div class="cabin col-xs-3" id="f-2"></div>
+    <div class="cabin col-xs-3" id="f-3"></div>
+    <div class="cabin col-xs-3" id="f-4"></div>
+</div>
 <script>
 
-    var exampleSocket = new WebSocket("ws://localhost:9000");
+    var socket = new WebSocket("ws://localhost:9000");
 
-    exampleSocket.onmessage = function (event) {
-        console.log("DUPA", event);
-        alert(event.data);
+    function free(id, gender) {
+        $("#" + gender + "-" + id).removeClass("busy");
+    }
+
+    function busy(id, gender) {
+        $("#" + gender + "-" + id).addClass("busy");
+    }
+
+
+    socket.onmessage = function (event) {
+        var data = JSON.parse(event.data);
+
+        switch (data.action) {
+            case "busy":
+                busy(data.id, data.gender);
+                break;
+            case "free":
+                free(data.id, data.gender);
+                break;
+            default:
+                free(data.id, data.gender);
+                break;
+        }
+
     }
 
 </script>
