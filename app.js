@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var expressWs = require('express-ws')(app);
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -24,13 +23,13 @@ app.get('/', function (req, res) {
   res.render('client');
 });
 
-app.get('/api/toilets/:gender/:id', function (req, res, next) {
+app.get('/api/toilets/:gender/:id', function (req, res) {
   var event = {
     gender: req.params.gender,
     action: req.query.action,
     id: req.params.id
   };
-  console.log(event);
+
   socket.send(JSON.stringify(event));
   res.end();
 });
