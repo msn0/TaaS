@@ -6,11 +6,9 @@ var bodyParser = require('body-parser');
 
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({port: 9000});
-var socket;
-
-wss.on('connection', function connection(ws) {
-  socket = ws;
-});
+var mqtt = require('mqtt');
+var client = mqtt.connect('mqtt://localhost');
+//var socket;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -23,15 +21,30 @@ app.get('/', function (req, res) {
   res.render('client');
 });
 
-app.get('/api/toilets/:gender/:id', function (req, res) {
-  var event = {
-    gender: req.params.gender,
-    action: req.query.action,
-    id: req.params.id
-  };
+wss.broadcast = function broadcast(data) {
+  wss.clients.forEach(function each(client) {
+    client.send(data);
+  });
+};
 
-  socket.send(JSON.stringify(event));
-  res.end();
+//wss.on('connection', function connection(ws) {
+//  socket = ws;
+//});
+
+client.on('connect', function () {
+  console.log('connected');
+  client.subscribe('WaaS/user');
 });
+
+client.on('message', function (topic, message) {
+  console.log(message.toString());
+
+  try {
+    wss.broadcast(message.toString());
+  } catch(e) {
+    console.log("connection error");
+  }
+});
+
 
 app.listen(3000);
