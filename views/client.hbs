@@ -1,0 +1,15 @@
+<html>
+<body>
+<p>asdfsdfsdf</p>
+<script>
+
+    var exampleSocket = new WebSocket("ws://localhost:9000");
+
+    exampleSocket.onmessage = function (event) {
+        console.log("DUPA");
+        console.log(event.data);
+    }
+
+</script>
+</body>
+</html>

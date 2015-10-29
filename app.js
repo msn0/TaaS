@@ -1,16 +1,31 @@
-var app = require('express.io')();
-app.http().io();
+var express = require('express');
+var app = express();
+var expressWs = require('express-ws')(app);
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
-// Setup the ready route, and emit talk event.
-app.io.route('ready', function(req) {
-  req.io.emit('talk', {
-    message: 'io event from an io route on the server'
-  });
+var WebSocketServer = require('ws').Server;
+var wss = new WebSocketServer({ port: 9000 });
+var socket;
+
+wss.on('connection', function connection (ws) {
+  socket = ws;
 });
 
-// Send the client html.
-app.get('/', function(req, res) {
-  res.sendfile(__dirname + '/views/client.html')
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+app.get('/', function(req, res, next){
+  res.render('client', {"dupa":"foo"});
 });
 
-app.listen(7076);
+app.get('/talk', function(req, res, next){
+  socket.send("stachu");
+});
+
+app.listen(3000);
