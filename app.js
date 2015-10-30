@@ -32,7 +32,7 @@ wss.on('connection', function connection(ws) {
 
 client.on('connect', function () {
   console.log('connected');
-  client.subscribe('WaaS/user');
+  client.subscribe('WaaS/timer');
 });
 
 client.on('message', function (topic, message) {

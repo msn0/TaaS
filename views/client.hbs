@@ -115,27 +115,23 @@
 
     var socket = new WebSocket("ws://172.18.21.110:9000");
 
-    function free(id, gender) {
+    function free(id, gender, runSeconds) {
+        console.log(runSeconds);
         document.querySelector("#" + gender + "-" + id).classList.remove("busy");
     }
 
-    function busy(id, gender) {
+    function busy(id, gender, runSeconds) {
+        console.log(runSeconds);
         document.querySelector("#" + gender + "-" + id).classList.add("busy");
     }
 
-
     socket.onmessage = function (event) {
         var data = JSON.parse(event.data);
-        switch (data.action) {
-            case "busy":
-                busy(data.id, data.gender);
-                break;
-            case "free":
-                free(data.id, data.gender);
-                break;
-            default:
-                free(data.id, data.gender);
-                break;
+
+        if (data.busy) {
+            busy(data.id, data.gender, data.runSeconds);
+        } else {
+            free(data.id, data.gender, data.runSeconds);
         }
     }
 
