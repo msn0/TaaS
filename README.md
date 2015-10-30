@@ -8,7 +8,7 @@ From now you are always up-to-date with your favourite cabins availability. Enjo
 npm install && npm start
 ```
 
-![screenshot](./public/images/screenshot.png)
+<img src="./public/images/screenshot.png" style="width: 558px"/>
 
 ## Caveats
 
