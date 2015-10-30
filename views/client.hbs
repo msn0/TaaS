@@ -29,18 +29,22 @@
             background: #a0fe25;
             max-width: 100%;
             margin: 10px 5px;
-            line-height: 100px;
+            overflow: hidden;
         }
 
         .cabin-time {
             color: dimgray;
             font-family: 'Jura', sans-serif;
             font-size: 18px;
+            line-height: 100px;
+        }
+
+        .cabin.busy .cabin-time {
+            color: white;
         }
 
         .cabin.busy {
             background: #FF0660;
-            color: white;
         }
 
         .gender {
