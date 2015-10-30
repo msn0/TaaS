@@ -6,11 +6,13 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no"
           id="Viewport" name="viewport"/>
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Jura' rel='stylesheet' type='text/css'>
     <style>
         * {
             margin: 0;
             padding: 0;
         }
+
         body {
             background: #614126;
             font-family: 'Pacifico', cursive;
@@ -28,8 +30,12 @@
             max-width: 100%;
             margin: 10px 5px;
             line-height: 100px;
+        }
+
+        .cabin-time {
             color: dimgray;
-            font-size: 36px;
+            font-family: 'Jura', sans-serif;
+            font-size: 18px;
         }
 
         .cabin.busy {
@@ -45,7 +51,7 @@
         }
 
         .toilets {
-           text-align: center;
+            text-align: center;
         }
 
         .toilet {
@@ -53,15 +59,14 @@
             display: inline-block;
             margin: 0 auto;
         }
+
         @media (min-width: 480px) {
             .toilet {
                 max-width: 200px;
             }
+
             .cabin {
                 margin: 16px 8px;
-            }
-            .logo {
-                text-align: left;
             }
         }
     </style>
@@ -75,18 +80,34 @@
     <div class="toilet">
         <h2 class="gender">Gents</h2>
 
-        <div class="cabin" id="m-1">1</div>
-        <div class="cabin" id="m-2">2</div>
-        <div class="cabin" id="m-3">3</div>
-        <div class="cabin" id="m-4">4</div>
+        <div class="cabin" id="m-1">
+            <div class="cabin-time"></div>
+        </div>
+        <div class="cabin" id="m-2">
+            <div class="cabin-time"></div>
+        </div>
+        <div class="cabin" id="m-3">
+            <div class="cabin-time"></div>
+        </div>
+        <div class="cabin" id="m-4">
+            <div class="cabin-time"></div>
+        </div>
     </div>
     <div class="toilet">
         <h2 class="gender">Ladies</h2>
 
-        <div class="cabin" id="f-1">1</div>
-        <div class="cabin" id="f-2">2</div>
-        <div class="cabin" id="f-3">3</div>
-        <div class="cabin" id="f-4">4</div>
+        <div class="cabin" id="f-1">
+            <div class="cabin-time"></div>
+        </div>
+        <div class="cabin" id="f-2">
+            <div class="cabin-time"></div>
+        </div>
+        <div class="cabin" id="f-3">
+            <div class="cabin-time"></div>
+        </div>
+        <div class="cabin" id="f-4">
+            <div class="cabin-time"></div>
+        </div>
     </div>
 </div>
 
