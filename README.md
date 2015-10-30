@@ -8,7 +8,7 @@ From now you are always up-to-date with your favourite cabins availability. Enjo
 npm install && npm start
 ```
 
-![alt tag](public/images/screenshot.png =558x)
+![screenshot](./public/images/screenshot.png)
 
 ## Caveats
 
