@@ -8,6 +8,6 @@ From now you are always up-to-date with your favourite cabins availability. Enjo
 npm install && npm start
 ```
 
-## Ceveats
+## Caveats
 
 TaaS was written within couple of hours during Roboton event organised by Allegro Group in Toruń, Poland. It's useless unless you have required hardware + middleware.
