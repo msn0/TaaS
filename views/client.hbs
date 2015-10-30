@@ -120,15 +120,21 @@
     var socket = new WebSocket("ws://172.18.21.110:9000");
 
     function free(id, gender, runSeconds) {
+        var min = Math.floor(runSeconds / 60);
+        var sec = runSeconds % 60;
+
         var cabin = document.querySelector("#" + gender + "-" + id);
         cabin.classList.remove("busy");
-        cabin.querySelector('.cabin-time').innerHTML = runSeconds;
+        cabin.querySelector('.cabin-time').innerHTML = min + " m&nbsp;&nbsp;" + sec + " s";
     }
 
     function busy(id, gender, runSeconds) {
+        var min = Math.floor(runSeconds / 60);
+        var sec = runSeconds % 60;
+
         var cabin = document.querySelector("#" + gender + "-" + id);
         cabin.classList.add("busy");
-        cabin.querySelector('.cabin-time').innerHTML = runSeconds;
+        cabin.querySelector('.cabin-time').innerHTML = min + " m&nbsp;&nbsp;" + sec + " s";
     }
 
     socket.onmessage = function (event) {
