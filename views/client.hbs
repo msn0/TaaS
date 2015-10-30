@@ -2,32 +2,67 @@
 <html>
 <head>
     <title>TaaS</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.js"></script>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no"
+          id="Viewport" name="viewport"/>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
         body {
             background: #614126;
+            font-family: 'Pacifico', cursive;
         }
 
         .logo {
             padding: 10px;
+            text-align: center;
         }
 
         .cabin {
             height: 100px;
-            margin: 0 5px;
-            background: #00ff00;
+            box-shadow: 1px 1px 0px #a18166;
+            background: #a0fe25;
+            max-width: 100%;
+            margin: 10px 5px;
+            line-height: 100px;
+            color: dimgray;
+            font-size: 36px;
         }
 
         .cabin.busy {
-            background: #ff0000;
+            background: #FF0660;
+            color: white;
         }
 
         .gender {
             color: #fff;
-            font-weight: bold;
-            font-size: 25px;
+            font-size: 36px;
             text-align: center;
+            font-weight: 500;
+        }
+
+        .toilets {
+           text-align: center;
+        }
+
+        .toilet {
+            width: 40%;
+            display: inline-block;
+            margin: 0 auto;
+        }
+        @media (min-width: 480px) {
+            .toilet {
+                max-width: 200px;
+            }
+            .cabin {
+                margin: 16px 8px;
+            }
+            .logo {
+                text-align: left;
+            }
         }
     </style>
 </head>
@@ -35,57 +70,41 @@
 <div class="logo">
     <img src="images/toilet-logo.png" alt="">
 </div>
-<div class="row gender">
-    <p>MALE</p>
-</div>
-<div class="row">
-    <div class="col-xs-3">
-        <div class="cabin" id="m-1"></div>
+
+<div class="toilets">
+    <div class="toilet">
+        <h2 class="gender">Gents</h2>
+
+        <div class="cabin" id="m-1">1</div>
+        <div class="cabin" id="m-2">2</div>
+        <div class="cabin" id="m-3">3</div>
+        <div class="cabin" id="m-4">4</div>
     </div>
-    <div class="col-xs-3">
-        <div class="cabin" id="m-2"></div>
-    </div>
-    <div class="col-xs-3">
-        <div class="cabin" id="m-3"></div>
-    </div>
-    <div class="col-xs-3">
-        <div class="cabin" id="m-4"></div>
-    </div>
-</div>
-<br>
-<div class="row gender">
-    <p>FEMALE</p>
-</div>
-<div class="row">
-    <div class="col-xs-3">
-        <div class="cabin" id="f-1"></div>
-    </div>
-    <div class="col-xs-3">
-        <div class="cabin" id="f-2"></div>
-    </div>
-    <div class="col-xs-3">
-        <div class="cabin" id="f-3"></div>
-    </div>
-    <div class="col-xs-3">
-        <div class="cabin" id="f-4"></div>
+    <div class="toilet">
+        <h2 class="gender">Ladies</h2>
+
+        <div class="cabin" id="f-1">1</div>
+        <div class="cabin" id="f-2">2</div>
+        <div class="cabin" id="f-3">3</div>
+        <div class="cabin" id="f-4">4</div>
     </div>
 </div>
+
 <script>
 
     var socket = new WebSocket("ws://172.18.21.110:9000");
 
     function free(id, gender) {
-        $("#" + gender + "-" + id).removeClass("busy");
+        document.querySelector("#" + gender + "-" + id).classList.remove("busy");
     }
 
     function busy(id, gender) {
-        $("#" + gender + "-" + id).addClass("busy");
+        document.querySelector("#" + gender + "-" + id).classList.add("busy");
     }
 
 
     socket.onmessage = function (event) {
         var data = JSON.parse(event.data);
-
         switch (data.action) {
             case "busy":
                 busy(data.id, data.gender);
@@ -97,7 +116,6 @@
                 free(data.id, data.gender);
                 break;
         }
-
     }
 
 </script>
